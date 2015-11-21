@@ -1,0 +1,3 @@
+rootProject.name = 'PepperWhite'
+
+include ':app'
