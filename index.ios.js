@@ -1,42 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-
-var React = require('react-native');
-var {
+import React, {
+  Component,
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-} = React;
+  View
+} from 'react-native'
 
-var PepperWhite = React.createClass({
-  render: function() {
+class PepperWhite extends Component {
+  constructor () {
+    super()
+  }
+  render = () => {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <Text style={styles.welcome}>You are great!</Text>
+        <Text style={styles.instructions}>They got nothing on you.</Text>
       </View>
-    );
+    )
   }
-});
+}
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCCC',
   },
   welcome: {
     fontSize: 20,
@@ -46,7 +35,7 @@ var styles = StyleSheet.create({
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginTop: 5,
   },
 });
 
