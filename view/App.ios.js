@@ -45,9 +45,7 @@ class App extends Component {
     }
     if (!token) {
       return (
-        <NavigatorIOS
-          style={styles.navigatorContainer}
-          initialRoute={{ title: Login.title, component: Login }}/>
+        <Login />
       )
     }
     return (
