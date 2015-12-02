@@ -21,6 +21,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2A9F0A561C0F7F91006EF947 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE7E6751C091CAC001605F2 /* libRNVectorIcons.a */; };
 		2AE7E65E1C0915D9001605F2 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E6561C0915D9001605F2 /* Entypo.ttf */; };
 		2AE7E65F1C0915D9001605F2 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E6571C0915D9001605F2 /* EvilIcons.ttf */; };
 		2AE7E6601C0915D9001605F2 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E6581C0915D9001605F2 /* FontAwesome.ttf */; };
@@ -29,7 +30,6 @@
 		2AE7E6631C0915D9001605F2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E65B1C0915D9001605F2 /* MaterialIcons.ttf */; };
 		2AE7E6641C0915D9001605F2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E65C1C0915D9001605F2 /* Octicons.ttf */; };
 		2AE7E6651C0915D9001605F2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE7E65D1C0915D9001605F2 /* Zocial.ttf */; };
-		2AE7E6761C091CE2001605F2 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE7E6751C091CAC001605F2 /* libRNVectorIcons.a */; };
 		2AE7E6781C0A15DA001605F2 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE7E6771C0A15DA001605F2 /* FBSDKLoginKit.framework */; };
 		2AE7E67B1C0A1B00001605F2 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE7E67A1C0A1B00001605F2 /* FBSDKCoreKit.framework */; };
 		2AE7E6831C0A1C78001605F2 /* libRCTFBSDKLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE7E6821C0A1C56001605F2 /* libRCTFBSDKLogin.a */; };
@@ -178,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A9F0A561C0F7F91006EF947 /* libRNVectorIcons.a in Frameworks */,
 				2AE7E6831C0A1C78001605F2 /* libRCTFBSDKLogin.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -191,7 +192,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				2AE7E6761C091CE2001605F2 /* libRNVectorIcons.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
