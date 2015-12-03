@@ -12,8 +12,9 @@ const promiseMiddleware = ({ dispatch }) =>
             (result) => isFluxStandardAction(result)
               ? dispatch(result)
               : dispatch({ ...action, payload: result }),
-            (error) =>
-              dispatch({ ...action, payload: error, error: true })
+            (error) => isFluxStandardAction(error)
+              ? dispatch(error)
+              : dispatch({ ...action, payload: error, error: true })
           )
         : next(action)
 

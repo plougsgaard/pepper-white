@@ -7,57 +7,59 @@ const initialState = {
 }
 
 export default userProfile = (state = initialState, action = {}) => {
-  switch (action.type) {
+  const { type, payload } = action
+  switch (type) {
     case LOAD:
-      console.log('LOAD')
       return {
         ...state,
         loading: true
       }
     case LOAD_SUCCESS:
-      console.log('LOAD_SUCCESS')
       return {
         ...state,
         loading: false,
         loaded: true,
-        user: action.payload
+        user: payload
       }
     case LOAD_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        error: payload
       }
     default:
       return state
   }
 }
 
-var fn = () =>
-  new Promise(function(resolve, reject) {
-    console.log('fn:resolve')
-    setTimeout(() => {
-      resolve({
-        type: LOAD_SUCCESS,
-        payload: { name: 'derp' }
-      })
-    }, 5000)
-  });
+export const loadUserProfileSuccess = (userProfile) => ({
+  type: LOAD_SUCCESS,
+  payload: userProfile
+})
 
-var fn2 = async function () {
-  const result = await new Promise(function(resolve, reject) {
+export const loadUserProfileFail = (reason) => ({
+  type: LOAD_FAIL,
+  payload: Error(reason)
+})
+
+const loadUserProfileFromServer = (token) =>
+  new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        type: LOAD_SUCCESS,
-        payload: { name: 'Horray' }
-      })
-    }, 10000)
+      const profile = {
+        name: 'Thomas',
+        age: 29,
+        sex: true
+      }
+      if (!token) {
+        reject(loadUserProfileFail('No token supplied'))
+      } else {
+        resolve(loadUserProfileSuccess(profile))
+      }
+    }, 2000)
   })
-  return result
-}
 
-export const loadUserProfile = () => ({
+export const loadUserProfile = (token) => ({
   type: LOAD,
-  payload: fn2()
+  payload: loadUserProfileFromServer(token)
 })

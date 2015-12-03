@@ -127,7 +127,7 @@ class Login extends Component {
   })
   static mapProps = (d) => ({
     addUser: (i) => d(addUser(i)),
-    loadUserProfile: () => d(loadUserProfile())
+    loadUserProfile: (token) => d(loadUserProfile(token))
   })
   addUser = () => {
     const { addUser } = this.props
@@ -146,7 +146,7 @@ class Login extends Component {
   }
   onPressSignUp = () => {
     const { loadUserProfile } = this.props
-    loadUserProfile()
+    loadUserProfile('fancy_token_f4ges5hs5rh5')
   }
   render = () => (
     <LoginLayout
