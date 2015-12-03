@@ -1,23 +1,20 @@
-const promiseMiddleware = ({ dispatch, getState }) =>
-  (next) => (action) => {
-    if (typeof action === 'function') {
-      return action(dispatch, getState)
-    }
+import _ from 'lodash'
 
-    const { promise, types, ...rest } = action
-    if (!promise) {
-      return next(action)
-    }
+const isPromise = (val) => val && typeof val.then === 'function'
 
-    const [REQUEST, SUCCESS, FAILURE] = types
-    next({...rest, type: REQUEST})
-    return promise(client).then(
-      (result) => next({...rest, result, type: SUCCESS}),
-      (error) => next({...rest, error, type: FAILURE})
-    ).catch((error) => {
-      console.error('MIDDLEWARE ERROR:', error)
-      next({...rest, error, type: FAILURE})
-    })
-  }
+const isFluxStandardAction = (action) => typeof action.type !== 'undefined'
+
+const promiseMiddleware = ({ dispatch }) =>
+  (next) =>
+    (action) =>
+      isPromise(action.payload)
+        ? next(action) && action.payload.then(
+            (result) => isFluxStandardAction(result)
+              ? dispatch(result)
+              : dispatch({ ...action, payload: result }),
+            (error) =>
+              dispatch({ ...action, payload: error, error: true })
+          )
+        : next(action)
 
 export default promiseMiddleware

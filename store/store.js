@@ -1,10 +1,24 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
+import createLogger from 'redux-logger'
+
+import promiseMiddleware from './promiseMiddleware'
 
 import models from '../model/allModels'
 
+const logger = createLogger({
+  level: `info`,
+  duration: true,
+  actionTransformer: (action) => {
+    return {
+      ...action,
+      type: String(action.type),
+    }
+  }
+})
+
 const composition = compose(
-  applyMiddleware(thunk),
+  applyMiddleware( promiseMiddleware, logger ),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )
 const createStoreWithMiddleware = composition(createStore)

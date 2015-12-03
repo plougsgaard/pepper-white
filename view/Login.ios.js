@@ -1,5 +1,6 @@
 import React, {
   Component,
+  PropTypes,
   AppRegistry,
   StyleSheet,
 
@@ -19,6 +20,7 @@ import { FBSDKLoginManager, FBSDKLoginButton } from 'react-native-fbsdklogin'
 import connectToStore from '../store/connect'
 
 import { addUser } from '../model/users'
+import { loadUserProfile } from '../model/userProfile'
 
 import baseStyle from '../style/base'
 
@@ -57,12 +59,16 @@ class LoginLayout extends Component {
       password: ''
     }
   }
+  static propTypes = {
+    onPressSignIn: PropTypes.func.isRequired,
+    onPressSignUp: PropTypes.func.isRequired
+  }
   render = () => (
     <Image style={styles.container}
       resizeMode={Image.resizeMode.cover}
       source={{uri: 'http://i.imgur.com/1THDlju.jpg'}}>
       <View style={styles.header}>
-        <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} />
+        <Image style={styles.mark} source={{uri: 'http://i.imgur.com/RCAqlDc.png'}} />
       </View>
       <View style={styles.inputs}>
         <View style={styles.inputContainer}>
@@ -90,7 +96,7 @@ class LoginLayout extends Component {
         </View>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={this.props.onPressSignIn}>
         <View style={styles.signin}>
           <Text style={styles.whiteFont}>Sign In</Text>
         </View>
@@ -101,7 +107,7 @@ class LoginLayout extends Component {
         </View>
       </TouchableOpacity>
       <View style={styles.signup}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.props.onPressSignUp}>
           <Text style={styles.greyFont}>
             Don't have an account?<Text style={styles.whiteFont}>  Sign Up</Text>
           </Text>
@@ -120,10 +126,12 @@ class Login extends Component {
     users: s.users
   })
   static mapProps = (d) => ({
-    addUser: (i) => d(addUser(i))
+    addUser: (i) => d(addUser(i)),
+    loadUserProfile: () => d(loadUserProfile())
   })
   addUser = () => {
     const { addUser } = this.props
+    console.log('adding user')
     addUser(id++)
   }
   renderLogin = () => (
@@ -133,8 +141,17 @@ class Login extends Component {
       <FacebookButton />
      </View>
   )
+  onPressSignIn = () => {
+    this.addUser()
+  }
+  onPressSignUp = () => {
+    const { loadUserProfile } = this.props
+    loadUserProfile()
+  }
   render = () => (
-    <LoginLayout />
+    <LoginLayout
+      onPressSignIn={this.onPressSignIn}
+      onPressSignUp={this.onPressSignUp}/>
   )
 }
 
@@ -157,8 +174,7 @@ const styles = StyleSheet.create({
   signin: {
     backgroundColor: '#FF3366',
     padding: 20,
-    alignItems: 'center',
-    fontWeight: 'bold'
+    alignItems: 'center'
   },
   facebookContainer: {
     paddingTop: 15
