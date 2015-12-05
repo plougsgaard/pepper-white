@@ -13,6 +13,16 @@ import React, {
 import { Provider } from 'react-redux/native' // track https://github.com/facebook/react-native/issues/2985
 import store from '../store/store'
 
+import connectToStore from '../store/connect'
+
+import {
+  setRoute,
+  ROUTE_LOADING,
+  ROUTE_SIGNIN,
+  ROUTE_SIGNUP,
+  ROUTE_MAIN
+} from '../model/router'
+
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import styles from '../style/base'
@@ -29,6 +39,14 @@ class App extends Component {
       iconBarcode: null
     }
   }
+  static mapState = (s) => ({
+    router: s.router,
+    userProfile: s.userProfile
+  })
+  static mapProps = (d) => ({
+    setRoute: (route) => d(setRoute(route)),
+    loadUserProfile: (token) => d(loadUserProfile(token))
+  })
   componentWillMount = () => {
     // hack required by TabBarIOS
     Ionicons.getImageSource('ios-barcode', 30).then((iconBarcode) => this.setState({ iconBarcode }))
@@ -40,38 +58,57 @@ class App extends Component {
   }
   render = () => {
     const { iconFlame, iconBarcode, selectedTab, token } = this.state
+    const { router: { route }, userProfile } = this.props
     if (!this.canRender()) {
       return false
     }
-    if (!token) {
-      return (
-        <Login />
-      )
+
+    switch (route) {
+      case ROUTE_LOADING:
+        return (
+            <View>
+              <Text>Loading - Loading - Loading</Text>
+            </View>
+        )
+      case ROUTE_SIGNIN:
+        return (
+          <Login />
+        )
+      case ROUTE_MAIN:
+        return (
+          <TabBarIOS>
+            <Ionicons.TabBarItem
+              title="Status"
+              iconName='ios-flame'
+              selected={selectedTab === 'status'}
+              onPress={() => this.setState({ selectedTab: 'status' })}>
+              <NavigatorIOS
+                style={styles.navigatorContainer}
+                initialRoute={{ title: Home.title, component: Home }}/>
+            </Ionicons.TabBarItem>
+            <Ionicons.TabBarItem
+              title="Scan"
+              iconName='ios-barcode'
+              selected={selectedTab === 'scan'}
+              onPress={() => this.setState({ selectedTab: 'scan' })}>
+              <NavigatorIOS
+                style={styles.navigatorContainer}
+                initialRoute={{ title: Home.title, component: Home }}/>
+            </Ionicons.TabBarItem>
+          </TabBarIOS>
+        )
+      default:
+        return (
+            <View>
+              <Text>No route matched. Weird.</Text>
+            </View>
+        )
     }
-    return (
-      <TabBarIOS>
-        <Ionicons.TabBarItem
-          title="Status"
-          iconName='ios-flame'
-          selected={selectedTab === 'status'}
-          onPress={() => this.setState({ selectedTab: 'status' })}>
-          <NavigatorIOS
-            style={styles.navigatorContainer}
-            initialRoute={{ title: Home.title, component: Home }}/>
-        </Ionicons.TabBarItem>
-        <Ionicons.TabBarItem
-          title="Scan"
-          iconName='ios-barcode'
-          selected={selectedTab === 'scan'}
-          onPress={() => this.setState({ selectedTab: 'scan' })}>
-          <NavigatorIOS
-            style={styles.navigatorContainer}
-            initialRoute={{ title: Home.title, component: Home }}/>
-        </Ionicons.TabBarItem>
-      </TabBarIOS>
-    )
+
   }
 }
+
+App = connectToStore(App)
 
 class AppProvider extends Component {
   constructor () {
