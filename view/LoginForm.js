@@ -102,8 +102,8 @@ const fields = ['email', 'password']
 
 const validate = (values) => {
   const errors = {}
-  if (!values.username) {
-    errors.username = 'Required'
+  if (!values.email) {
+    errors.email = 'Required'
   }
   if (!values.password) {
     errors.password = 'Required'
@@ -113,13 +113,7 @@ const validate = (values) => {
 
 const asyncValidate = (values/*, dispatch */) =>
   new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (['john', 'paul', 'george', 'ringo'].includes(values.username)) {
-        reject({username: 'That username is taken'})
-      } else {
-        resolve()
-      }
-    }, 1000) // simulate server latency
+    setTimeout(resolve, 1000) // simulate server latency
   })
 
 const styles = StyleSheet.create({
@@ -197,6 +191,5 @@ export default reduxForm({
   form: 'login',
   fields,
   validate,
-  asyncValidate,
-  asyncBlurFields: ['username']
+  asyncValidate
 })(LoginLayout)

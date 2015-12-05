@@ -9,10 +9,7 @@ import connectToStore from '../store/connect'
 
 import LoginLayout from './LoginForm'
 
-import { addUser } from '../model/users'
 import { loadUserProfile } from '../model/userProfile'
-
-let id = 0
 
 class Login extends Component {
   constructor () {
@@ -20,31 +17,25 @@ class Login extends Component {
   }
   static title = 'Login Screen'
   static mapState = (s) => ({
-    users: s.users
+    userProfile: s.userProfile
   })
   static mapProps = (d) => ({
-    addUser: (i) => d(addUser(i)),
     loadUserProfile: (token) => d(loadUserProfile(token))
   })
-  addUser = () => {
-    const { addUser } = this.props
-    console.log('adding user')
-    addUser(id++)
-  }
   handleLogin = (fields) => {
-    this.addUser()
+    console.log('login', fields)
   }
   handleSignUp = () => {
-    alert('sign up')
+    console.log('sign up')
   }
   handleForgotPassword = () => {
-    alert('forgot password')
+    console.log('forgot password')
   }
   handleFacebookLogin = () => {
-    alert('facebook login')
+    console.log('facebook login')
   }
   handleFacebookLogout = () => {
-    alert('facebook logout')
+    console.log('facebook logout')
   }
   onPressSignUp = () => {
     const { loadUserProfile } = this.props
