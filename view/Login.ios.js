@@ -7,6 +7,14 @@ import _ from 'lodash'
 
 import connectToStore from '../store/connect'
 
+import {
+  setRoute,
+  ROUTE_LOADING,
+  ROUTE_SIGNIN,
+  ROUTE_SIGNUP,
+  ROUTE_MAIN
+} from '../model/router'
+
 import LoginLayout from './LoginForm'
 
 import { loadUserProfile } from '../model/userProfile'
@@ -20,12 +28,15 @@ class Login extends Component {
     userProfile: s.userProfile
   })
   static mapProps = (d) => ({
+    setRoute: (route) => d(setRoute(route)),
     loadUserProfile: (token) => d(loadUserProfile(token))
   })
   handleLogin = (fields) => {
     console.log('login', fields)
   }
   handleSignUp = () => {
+    const { setRoute } = this.props
+    setRoute(ROUTE_MAIN)
     console.log('sign up')
   }
   handleForgotPassword = () => {

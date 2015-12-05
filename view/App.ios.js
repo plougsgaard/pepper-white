@@ -51,6 +51,9 @@ class App extends Component {
     // hack required by TabBarIOS
     Ionicons.getImageSource('ios-barcode', 30).then((iconBarcode) => this.setState({ iconBarcode }))
     Ionicons.getImageSource('ios-flame', 30).then((iconFlame) => this.setState({ iconFlame }))
+
+    const { setRoute } = this.props
+    setTimeout(() => setRoute(ROUTE_SIGNIN), 1000)
   }
   canRender = () => {
     const { iconFlame, iconBarcode } = this.state
