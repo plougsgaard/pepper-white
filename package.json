@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "start": "npm run clean && $NVM_BIN/react-native start",
+    "upgrade": "$NVM_BIN/react-native upgrade",
     "clean": "find node_modules -type f -name '.babelrc' | grep -v 'node_modules/react-native' | xargs rm"
   },
   "dependencies": {
