@@ -7,14 +7,12 @@ import promiseMiddleware from './promiseMiddleware'
 import models from '../model/allModels'
 
 const logger = createLogger({
-  level: `info`,
+  level: 'info',
   duration: true,
-  actionTransformer: (action) => {
-    return {
-      ...action,
-      type: String(action.type),
-    }
-  }
+  actionTransformer: (action) => ({
+    ...action,
+    type: String(action.type)
+  })
 })
 
 const composition = compose(
